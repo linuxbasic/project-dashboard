@@ -1,0 +1,40 @@
+{% load mta %}
+
+<div id="mta_div" class="uk-width-1-1"></div>
+
+<script type="text/javascript">
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        {% get_headers project as headers %}
+        {% autoescape off %}
+            {% for header in headers %}
+                data.addColumn('date', "{{ header }}");
+            {% endfor %}
+        {% endautoescape %}
+
+
+        var rows = {% autoescape off %}{% get_table project %}{% endautoescape %};
+        data.addRows(rows);
+
+        var options = {
+            height: rows.length * 50,
+            explorer: {
+                actions: ['dragToPan', 'dragToPan', 'rightClickToReset']
+            },
+            vAxis: {
+                format: 'dd.MM.yyyy',
+                title:'Milestone Date'
+            },
+            hAxis: {
+                format: 'dd.MM.yyyy'
+            },
+        };
+
+        var chart = new google.charts.Line(document.getElementById('mta_div'));
+
+        chart.draw(data, google.charts.Line.convertOptions(options));
+
+    }
+</script>
