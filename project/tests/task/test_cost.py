@@ -23,6 +23,7 @@ class TaskCostTests(TestCase):
         task.resources.create(name='resource 2', cost=RESOURCE_COST_2)
 
         self.assertEqual(task.get_planned_cost(), PLANNED_DURATION * (RESOURCE_COST_1 + RESOURCE_COST_2))
+        self.assertEqual(task.get_cost(), PLANNED_DURATION * (RESOURCE_COST_1 + RESOURCE_COST_2))
 
     def test_should_return_predicted_cost_of_multiple_resources(self):
         PLANNED_DURATION = 5
@@ -35,6 +36,7 @@ class TaskCostTests(TestCase):
         task.duration_predictions.create(date=date.today() + timedelta(days=2), duration=PREDICTED_DURATION)
 
         self.assertEqual(task.get_cost(), PREDICTED_DURATION * (RESOURCE_COST_1 + RESOURCE_COST_2))
+        self.assertEqual(task.get_planned_cost(), PLANNED_DURATION * (RESOURCE_COST_1 + RESOURCE_COST_2))
 
     def test_should_return_predicted_cost_of_multiple_resources_on_specific_date(self):
         PLANNED_DURATION = 5
