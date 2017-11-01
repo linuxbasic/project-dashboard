@@ -25,8 +25,8 @@ class TaskTests(TestCase):
 
     def test_should_return_predicted_duration_on_specific_date(self):
         PLANNED_DURATION = 5
-        PREDICTED_DURATION_1 = 5
-        PREDICTED_DURATION_2 = 5
+        PREDICTED_DURATION_1 = 3
+        PREDICTED_DURATION_2 = 2
 
         task = create_task(planned_duration=PLANNED_DURATION)
         task.duration_predictions.create(date=date.today() + timedelta(days=1), duration=PREDICTED_DURATION_1)
