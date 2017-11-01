@@ -11,6 +11,7 @@
             <ul class="uk-tab-right" uk-tab="connect: #time-tabs">
                 <li><a href="#">MTA</a></li>
                 <li><a href="#">GANTT</a></li>
+                <li><a href="#">Details</a></li>
             </ul>
         </div>
         <div class="uk-width-1-4">
@@ -24,10 +25,13 @@
         <div class="uk-width-expand@m">
             <ul id="time-tabs" class="uk-switcher">
                 <li>
-                    {% include "dashboard/partials/MilestoneTrendAnalyse.html" %}
+                    {% include "dashboard/partials/time/milestone-trend-analysis.html" %}
                 </li>
                 <li>
-                    {% include "dashboard/partials/gantt.html" %}
+                    {% include "dashboard/partials/time/timeline-gantt.html" %}
+                </li>
+                <li>
+                    {% include "dashboard/partials/time/time-details.html" %}
                 </li>
             </ul>
         </div>

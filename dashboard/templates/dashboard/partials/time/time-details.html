@@ -1,0 +1,18 @@
+<table class="uk-table uk-table-striped uk-table-hover uk-table-small">
+    <thead>
+    <tr>
+        <th>Phase</th>
+        <th>Planned End</th>
+        <th>Predicted End</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for phase in project.phases.all %}
+        <tr>
+            <td>{{ phase.name }}</td>
+            <td>{{ phase.get_planned_end_date }}</td>
+            <td>{{ phase.get_end_date }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
