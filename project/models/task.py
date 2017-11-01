@@ -36,6 +36,9 @@ class Task(MPTTModel):
     def get_planned_cost(self):
         return self.get_planned_duration() * self.get_resource_cost()
 
+    def get_cost(self, on_date=None):
+        return self.get_duration(on_date) * self.get_resource_cost()
+
     class MPTTMeta:
         parent_attr = 'predecessor'
         order_insertion_by = ['name']
