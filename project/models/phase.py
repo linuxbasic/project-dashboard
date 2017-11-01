@@ -20,17 +20,23 @@ class Phase(MPTTModel):
         if not self.predecessor:
             return self.project.start_date
 
-        predecessor_start_date = self.predecessor.get_planned_start_date()
-        predecessor_duration = self.predecessor.get_planned_duration()
-        return predecessor_start_date + timedelta(days=predecessor_duration)
+        return self.predecessor.get_planned_end_date()
 
     def get_start_date(self, on_date=None):
         if not self.predecessor:
             return self.project.start_date
 
-        predecessor_start_date = self.predecessor.get_start_date(on_date)
-        predecessor_duration = self.predecessor.get_duration(on_date)
-        return predecessor_start_date + timedelta(days=predecessor_duration)
+        return self.predecessor.get_end_date(on_date)
+
+    def get_planned_end_date(self):
+        planned_start_date = self.get_planned_start_date()
+        planned_duration = self.get_planned_duration()
+        return planned_start_date + timedelta(days=planned_duration)
+
+    def get_end_date(self, on_date=None):
+        start_date = self.get_start_date(on_date)
+        duration = self.get_duration(on_date)
+        return start_date + timedelta(days=duration)
 
     class MPTTMeta:
         parent_attr = 'predecessor'
