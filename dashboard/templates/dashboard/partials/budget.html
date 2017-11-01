@@ -1,0 +1,30 @@
+<div class="uk-card uk-card-default uk-card-body uk-margin">
+    <div class="uk-grid-small uk-flex-middle" uk-grid>
+        <div class="uk-width-auto">
+            {% include 'dashboard/elements/status.html' with status_code=2 %}
+        </div>
+        <h3 class="uk-card-title">Budget</h3>
+    </div>
+
+    <div uk-grid>
+        <div class="uk-width-auto@m uk-flex-last@m">
+            <ul class="uk-tab-right" uk-tab="connect: #budget-tabs">
+                <li><a href="#">EVA</a></li>
+                <li><a href="#">Details</a></li>
+            </ul>
+        </div>
+        <div class="uk-width-1-4">
+            EVA-Overview
+        </div>
+        <div class="uk-width-expand@m">
+            <ul id="budget-tabs" class="uk-switcher">
+                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua.
+                </li>
+                <li>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                    commodo consequat.
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

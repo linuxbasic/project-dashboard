@@ -1,0 +1,53 @@
+{% load gantt %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<div id="chart_div" class="uk-width-1-1"></div>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages': ['gantt']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function daysToMilliseconds(days) {
+        return days * 24 * 60 * 60 * 1000;
+    }
+
+    function drawChart() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Task ID');
+        data.addColumn('string', 'Task Name');
+        data.addColumn('string', 'Resource ID');
+        data.addColumn('date', 'Start Date');
+        data.addColumn('date', 'End Date');
+        data.addColumn('number', 'Duration');
+        data.addColumn('number', 'Percent Complete');
+        data.addColumn('string', 'Dependencies');
+
+        var rows = [
+            {% autoescape off %}
+                {% for phase in project.phases.all %}
+                    {% print_phase_row phase %}
+                    {% for task in phase.tasks.all %}
+                        {% print_task_row task %}
+                    {% endfor %}
+                {% endfor %}
+            {% endautoescape %}
+        ];
+
+        data.addRows(rows);
+
+        var el = document.getElementById('chart_div')
+        var chart = new google.visualization.Gantt(el)
+        var options = {
+            width: 1000,
+            height: rows.length * 42,
+            gantt: {
+                barCornerRadius: 0,
+                percentEnabled: false
+            }
+        };
+        chart.draw(data, options)
+
+
+    }
+</script>

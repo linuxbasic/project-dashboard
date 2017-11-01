@@ -1,0 +1,19 @@
+<!-- UIkit CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/css/uikit.min.css"/>
+
+<!-- UIkit JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit-icons.min.js"></script>
+
+{% include "dashboard/partials/header.html" %}
+
+<div class="uk-flex uk-padding">
+    <div>
+        {% include "dashboard/partials/light.html" %}
+    </div>
+    <div class="uk-width-1-1">
+        {% include "dashboard/partials/budget.html" %}
+        {% include "dashboard/partials/time.html" %}
+        {% include "dashboard/partials/scope.html" %}
+    </div>
+</div>

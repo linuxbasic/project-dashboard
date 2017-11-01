@@ -1,0 +1,35 @@
+<div class="uk-card uk-card-default uk-card-body uk-margin">
+    <div class="uk-grid-small uk-flex-middle" uk-grid>
+        <div class="uk-width-auto">
+            {% include 'dashboard/elements/status.html' with status_code=project.get_time_status %}
+        </div>
+        <h3 class="uk-card-title">Time</h3>
+    </div>
+
+    <div uk-grid>
+        <div class="uk-width-auto@m uk-flex-last@m">
+            <ul class="uk-tab-right" uk-tab="connect: #time-tabs">
+                <li><a href="#">MTA</a></li>
+                <li><a href="#">GANTT</a></li>
+            </ul>
+        </div>
+        <div class="uk-width-1-4">
+            <dl>
+                <dt>Planned End Date</dt>
+                <dd>{{ project.get_planned_end_date }}</dd>
+                <dt>Probable Enddate</dt>
+                <dd>{{ project.get_end_date }}</dd>
+            </dl>
+        </div>
+        <div class="uk-width-expand@m">
+            <ul id="time-tabs" class="uk-switcher">
+                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua.
+                </li>
+                <li>
+                    {% include "dashboard/partials/gantt.html" %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
