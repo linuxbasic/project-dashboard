@@ -18,18 +18,10 @@ class Project(models.Model):
     start_date = models.DateField(verbose_name='Start Date', )
 
     def get_planned_duration(self):
-        phase_durations = map(lambda phase: phase.get_planned_duration(), self.phases.all())
-        return sum(phase_durations)
-
-    def get_real_duration(self):
-        phase_durations = map(lambda phase: phase.get_real_duration(), self.phases.all())
-        if phase_durations:
-            return sum(phase_durations)
+        return sum([phase.get_planned_duration() for phase in self.phases.all()])
 
     def get_duration(self):
-        phase_durations = map(lambda phase: phase.get_duration(), self.phases.all())
-        if phase_durations:
-            return sum(phase_durations)
+        return sum([phase.get_duration() for phase in self.phases.all()])
 
     def get_planned_end_date(self):
         return self.start_date + timedelta(days=self.get_planned_duration())
@@ -41,6 +33,12 @@ class Project(models.Model):
         planned_duration = self.get_planned_duration()
         duration = self.get_duration()
         return calculate_time_status(planned_duration, duration)
+
+    def get_planned_cost(self):
+        return sum([phase.get_planned_cost() for phase in self.phases.all()])
+
+    def get_cost(self, on_date=None):
+        return sum([phase.get_cost(on_date) for phase in self.phases.all()])
 
     def __str__(self):
         return self.name
