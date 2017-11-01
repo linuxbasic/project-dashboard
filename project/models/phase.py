@@ -13,8 +13,8 @@ class Phase(MPTTModel):
     def get_planned_duration(self):
         return sum([task.get_planned_duration() for task in self.tasks.all()])
 
-    def get_duration(self):
-        return sum([task.get_duration() for task in self.tasks.all()])
+    def get_duration(self, on_date=None):
+        return sum([task.get_duration(on_date) for task in self.tasks.all()])
 
     def get_planned_start_date(self):
         if not self.predecessor:
@@ -24,15 +24,13 @@ class Phase(MPTTModel):
         predecessor_duration = self.predecessor.get_planned_duration()
         return predecessor_start_date + timedelta(days=predecessor_duration)
 
-    def get_start_date(self):
+    def get_start_date(self, on_date=None):
         if not self.predecessor:
             return self.project.start_date
 
-        predecessor_duration = self.predecessor.get_duration()
-        if predecessor_duration:
-            predecessor_start_date = self.predecessor.get_start_date()
-            return predecessor_start_date + timedelta(days=predecessor_duration)
-        return self.get_planned_start_date()
+        predecessor_start_date = self.predecessor.get_start_date(on_date)
+        predecessor_duration = self.predecessor.get_duration(on_date)
+        return predecessor_start_date + timedelta(days=predecessor_duration)
 
     class MPTTMeta:
         parent_attr = 'predecessor'
