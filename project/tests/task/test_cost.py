@@ -2,7 +2,7 @@ from datetime import date, timedelta
 
 from django.test import TestCase
 
-from project.tests.utils import create_task
+from core.shared.test_utils import create_task
 
 
 class TaskCostTests(TestCase):

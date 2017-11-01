@@ -1,5 +1,5 @@
 from django.test import TestCase
-from project.tests.utils import create_phase, create_task, create_project
+from core.shared.test_utils import create_project, create_phase, create_task
 from datetime import timedelta, date
 
 
