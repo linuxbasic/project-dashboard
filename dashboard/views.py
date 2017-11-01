@@ -7,6 +7,8 @@ from datetime import date
 
 
 def index(request):
-    context = {'project': Project.objects.all().last(), 'today': date.today()}
+    project = Project.objects.all().prefetch_related('phases__tasks__duration_predictions').prefetch_related(
+        'phases__tasks__resources').last()
+    context = {'project': project, 'today': date.today()}
 
     return render(request=request, template_name='dashboard/dashboard.html', context=context)
