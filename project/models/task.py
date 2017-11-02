@@ -34,11 +34,37 @@ class Task(MPTTModel):
     def get_resource_cost(self):
         return sum(self.resources.all().values_list('cost', flat=True))
 
-    def get_planned_cost(self):
-        return self.get_planned_duration() * self.get_resource_cost()
+    def get_planned_cost(self, on_date=None):
+        if on_date is None:
+            return self.get_planned_duration() * self.get_resource_cost()
+
+        start_date = self.get_planned_start_date()
+        if on_date <= start_date:
+            return 0
+
+        end_date = self.get_planned_end_date()
+        if on_date >= end_date:
+            return self.get_planned_cost()
+
+        task_duration = self.get_planned_duration()
+        days_spend_on_task = (on_date - start_date).days
+        return self.get_planned_cost() * (days_spend_on_task / task_duration)
 
     def get_cost(self, on_date=None):
-        return self.get_duration(on_date) * self.get_resource_cost()
+        if on_date is None:
+            return self.get_duration(on_date) * self.get_resource_cost()
+
+        start_date = self.get_start_date(on_date)
+        if on_date <= start_date:
+            return 0
+
+        end_date = self.get_end_date(on_date)
+        if on_date >= end_date:
+            return self.get_cost()
+
+        task_duration = self.get_duration(on_date)
+        days_spend_on_task = (on_date - start_date).days
+        return self.get_cost() * (days_spend_on_task / task_duration)
 
     def get_start_date(self, on_date=None):
         if not self.predecessor:
