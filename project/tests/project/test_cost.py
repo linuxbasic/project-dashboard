@@ -57,22 +57,3 @@ class ProjectCostTests(TestCase):
 
         self.assertEqual(project.get_cost(), task_1_predicted_cost + task_2_predicted_cost)
         self.assertEqual(project.get_planned_cost(), task_1_planned_cost + task_2_planned_cost)
-
-    def test_should_return_predicted_cost_on_specific_date(self):
-        START_DATE = date(2017, 10, 25)
-        project = create_project(start_date=START_DATE)
-        phase = create_phase(project=project)
-
-        PLANNED_DURATION = 5
-        PREDICTED_DURATION_1 = 3
-        PREDICTED_DURATION_2 = 8
-        RESOURCE_COST = 50
-        task_1 = create_task(planned_duration=PLANNED_DURATION, phase=phase)
-        task_1.resources.create(name='resource', cost=RESOURCE_COST)
-        task_1.duration_predictions.create(date=START_DATE + timedelta(days=1), duration=PREDICTED_DURATION_1)
-        task_1.duration_predictions.create(date=START_DATE + timedelta(days=3), duration=PREDICTED_DURATION_2)
-
-        self.assertEqual(project.get_cost(START_DATE + timedelta(days=1)), PREDICTED_DURATION_1 * RESOURCE_COST)
-        self.assertEqual(project.get_cost(START_DATE + timedelta(days=2)), PREDICTED_DURATION_1 * RESOURCE_COST)
-        self.assertEqual(project.get_cost(START_DATE + timedelta(days=3)), PREDICTED_DURATION_2 * RESOURCE_COST)
-        self.assertEqual(project.get_cost(START_DATE + timedelta(days=4)), PREDICTED_DURATION_2 * RESOURCE_COST)
