@@ -38,8 +38,8 @@ class Phase(MPTTModel):
         duration = self.get_duration(on_date)
         return start_date + timedelta(days=duration)
 
-    def get_planned_cost(self):
-        return sum([task.get_planned_cost() for task in self.tasks.all()])
+    def get_planned_cost(self, on_date=None):
+        return sum([task.get_planned_cost(on_date) for task in self.tasks.all()])
 
     def get_cost(self, on_date=None):
         return sum([task.get_cost(on_date) for task in self.tasks.all()])
