@@ -1,5 +1,6 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
+from datetime import timedelta
 
 
 # Create your models here.
@@ -38,6 +39,26 @@ class Task(MPTTModel):
 
     def get_cost(self, on_date=None):
         return self.get_duration(on_date) * self.get_resource_cost()
+
+    def get_start_date(self, on_date=None):
+        if not self.predecessor:
+            return self.phase.get_start_date(on_date)
+        return self.predecessor.get_end_date(on_date)
+
+    def get_planned_start_date(self):
+        if not self.predecessor:
+            return self.phase.get_planned_start_date()
+        return self.predecessor.get_planned_end_date()
+
+    def get_planned_end_date(self):
+        start_date = self.get_planned_start_date()
+        duration = self.get_planned_duration()
+        return start_date + timedelta(days=duration)
+
+    def get_end_date(self, on_date=None):
+        start_date = self.get_start_date(on_date)
+        duration = self.get_duration(on_date)
+        return start_date + timedelta(days=duration)
 
     class MPTTMeta:
         parent_attr = 'predecessor'
