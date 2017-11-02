@@ -34,8 +34,8 @@ class Project(models.Model):
         duration = self.get_duration()
         return calculate_time_status(planned_duration, duration)
 
-    def get_planned_cost(self):
-        return sum([phase.get_planned_cost() for phase in self.phases.all()])
+    def get_planned_cost(self, on_date=None):
+        return sum([phase.get_planned_cost(on_date) for phase in self.phases.all()])
 
     def get_cost(self, on_date=None):
         return sum([phase.get_cost(on_date) for phase in self.phases.all()])
