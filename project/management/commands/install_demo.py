@@ -73,6 +73,7 @@ class Command(BaseCommand):
         task_3_5 = phase_3.tasks.create(name='Architektur dokumentieren', planned_duration=2, predecessor=task_3_4)
         task_3_5.resources.add(architect_resource)
 
+        project.earnings.create(date='2017-09-11', name='Payout No. 1', value=14640)
         phase_4 = project.phases.create(name='Implementierung', predecessor=phase_3)
 
         task_4_1 = phase_4.tasks.create(name='UX Konzept erstellen', planned_duration=3)
@@ -86,7 +87,7 @@ class Command(BaseCommand):
 
         task_4_3 = phase_4.tasks.create(name='Backend implementieren', planned_duration=20, predecessor=task_4_2)
         task_4_3.resources.add(developer_resource)
-        task_4_3.duration_predictions.create(date='2017-10-05', duration=25) # new issue
+        task_4_3.duration_predictions.create(date='2017-10-05', duration=25)  # new issue
         task_4_3.duration_predictions.create(date='2017-10-15', duration=18)
 
         task_4_4 = phase_4.tasks.create(name='Database review', planned_duration=1, predecessor=task_4_3)
@@ -108,6 +109,8 @@ class Command(BaseCommand):
         task_5_1.resources.add(business_analyst_resource)
         task_5_1.resources.add(architect_resource)
         task_5_1.resources.add(qa_resource)
+
+        project.earnings.create(date='2017-10-22', name='Payout No. 2', value=68770 - 14640)
 
         task_5_2 = phase_5.tasks.create(name='QA testing', planned_duration=5, predecessor=task_5_1)
         task_5_2.resources.add(qa_resource)

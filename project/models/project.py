@@ -24,5 +24,11 @@ class Project(models.Model):
     def get_cost(self, on_date=None):
         return sum([phase.get_cost(on_date) for phase in self.phases.all()])
 
+    def get_earnings(self, on_date=None):
+        query = self.earnings.all()
+        if on_date is not None:
+            query = query.filter(date__lte=on_date)
+        return sum(query.values_list('value', flat=True))
+
     def __str__(self):
         return self.name
