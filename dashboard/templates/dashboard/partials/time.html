@@ -1,7 +1,7 @@
 <div class="uk-card uk-card-default uk-card-body uk-margin">
     <div class="uk-grid-small uk-flex-middle" uk-grid>
         <div class="uk-width-auto">
-            {% include 'dashboard/elements/status.html' with status_code=project.get_time_status %}
+            {% include 'dashboard/elements/status.html' with status_code=status.time %}
         </div>
         <h3 class="uk-card-title">Time</h3>
     </div>
