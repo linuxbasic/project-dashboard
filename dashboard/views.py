@@ -9,7 +9,19 @@ def calculate_time_status(project):
     delta = planned_duration - duration
     if delta >= 0:
         return 1
-    missmatch = abs(planned_duration / duration - 1)
+    missmatch = abs((planned_duration / duration) - 1)
+    if missmatch <= 0.05:
+        return 2
+    return 3
+
+
+def calculate_budget_status(project, date):
+    planned_cost = project.get_planned_cost(date)
+    actual_cost = project.get_cost(date)
+    delta = planned_cost - actual_cost
+    if delta >= 0:
+        return 1
+    missmatch = abs((planned_cost / actual_cost) - 1)
     if missmatch <= 0.05:
         return 2
     return 3
@@ -20,10 +32,10 @@ def index(request):
         'phases__tasks__resources').last()
     today = date.today()
     context = {
-        'project': project,
-        'today': today,
-        'status': {
-            'time': calculate_time_status(project)
+        'project': project, 'today': today, 'cost': {
+            'planned': project.get_planned_cost(today), 'actual': project.get_cost(today),
+        }, 'status': {
+            'time': calculate_time_status(project), 'budget': calculate_budget_status(project, today),
         }
     }
 

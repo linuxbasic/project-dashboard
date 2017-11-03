@@ -1,7 +1,7 @@
 <div class="uk-card uk-card-default uk-card-body uk-margin">
     <div class="uk-grid-small uk-flex-middle" uk-grid>
         <div class="uk-width-auto">
-            {% include 'dashboard/elements/status.html' with status_code=2 %}
+            {% include 'dashboard/elements/status.html' with status_code=status.budget %}
         </div>
         <h3 class="uk-card-title">Budget</h3>
     </div>
@@ -14,7 +14,14 @@
             </ul>
         </div>
         <div class="uk-width-1-4">
-            EVA-Overview
+            <dl>
+                <dt>Planned Cost Today</dt>
+                <dd>{{ cost.planned }} CHF</dd>
+                <dt>Actual Cost Today</dt>
+                <dd>{{ cost.actual }} CHF</dd>
+                <dt>Earned Value Today</dt>
+                <dd></dd>
+            </dl>
         </div>
         <div class="uk-width-expand@m">
             <ul id="budget-tabs" class="uk-switcher">
