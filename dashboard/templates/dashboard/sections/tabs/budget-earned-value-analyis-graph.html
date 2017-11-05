@@ -1,0 +1,38 @@
+{% load earned_value_analysis %}
+
+<div id="eva_div" class="uk-width-1-1"></div>
+
+<script type="text/javascript">
+    google.charts.setOnLoadCallback(drawEarnedValueAnalysisChart);
+
+    function drawEarnedValueAnalysisChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Date of Prediction');
+        data.addColumn('number', 'Planned Cost');
+        data.addColumn('number', 'Actual Cost');
+        data.addColumn('number', 'Predicted Cost');
+        data.addColumn('number', 'Earned Value');
+
+
+        var rows = {% autoescape off %}{% get_table project %}{% endautoescape %};
+        data.addRows(rows);
+
+        var options = {
+            height: 500,
+            explorer: {
+                actions: ['dragToPan', 'dragToPan', 'rightClickToReset']
+            },
+            vAxis: {
+                title:'Cost in CHF'
+            },
+            hAxis: {
+                format: 'dd.MM.yyyy'
+            },
+        };
+
+        var chart = new google.charts.Line(document.getElementById('eva_div'));
+
+        chart.draw(data, google.charts.Line.convertOptions(options));
+
+    }
+</script>

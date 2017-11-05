@@ -1,9 +1,12 @@
 from datetime import timedelta
 
-def get_days(start_date, end_date):
+DAYS_BETWEEN_MEASUREMENTS = 7
+
+
+def get_dates_of_measurement(start_date, end_date):
     delta = end_date - start_date
 
-    return [start_date + timedelta(days=i) for i in range(0, delta.days + 1, 7)]
+    return [start_date + timedelta(days=i) for i in range(0, delta.days + 1, DAYS_BETWEEN_MEASUREMENTS)]
 
 
 def to_json_array(array):

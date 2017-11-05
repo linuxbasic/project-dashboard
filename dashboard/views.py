@@ -30,13 +30,12 @@ def calculate_budget_status(project, date):
 def index(request):
     project = Project.objects.all().prefetch_related('phases__tasks__duration_predictions').prefetch_related(
         'phases__tasks__resources').last()
-    today = date.today()
+    today = project.today()
     planned_cost = project.get_planned_cost(today)
     actual_cost = project.get_cost(today)
     earned_value = project.get_earnings(today)
     context = {
         'project': project,
-        'today': today,
         'cost': {
             'planned': planned_cost,
             'actual': actual_cost,

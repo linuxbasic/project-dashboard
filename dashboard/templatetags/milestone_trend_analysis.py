@@ -1,5 +1,5 @@
 from django import template
-from dashboard.chart_utils import get_days, to_json_array
+from dashboard.chart_utils import get_dates_of_measurement, to_json_array
 
 register = template.Library()
 
@@ -13,7 +13,7 @@ def get_headers(project):
 
 @register.simple_tag
 def get_table(project):
-    prediction_dates = get_days(project.start_date, project.get_end_date())
+    prediction_dates = get_dates_of_measurement(project.start_date, project.get_end_date())
     rows = []
     for prediction_date in prediction_dates:
         row = [date_template.format(prediction_date)] + [date_template.format(phase.get_end_date(prediction_date)) for

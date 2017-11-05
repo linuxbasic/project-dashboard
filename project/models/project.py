@@ -1,10 +1,15 @@
-from datetime import timedelta
+from datetime import timedelta, date
 from django.db import models
 
 
 class Project(models.Model):
     name = models.CharField(verbose_name='Project Name', max_length=50, )
     start_date = models.DateField(verbose_name='Start Date', )
+
+    def today(self):
+        if not hasattr(self, '_today'):
+            self._today = date.today()
+        return self._today
 
     def get_planned_duration(self):
         return sum([phase.get_planned_duration() for phase in self.phases.all()])
