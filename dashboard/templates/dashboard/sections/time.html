@@ -1,7 +1,7 @@
 <div class="uk-card uk-card-default uk-card-body uk-margin">
     <div class="uk-grid-small uk-flex-middle" uk-grid>
         <div class="uk-width-auto">
-            {% include 'dashboard/elements/status.html' with status_code=status.time %}
+            {% include 'dashboard/elements/../partials/status.html' with status_code=status.time %}
         </div>
         <h3 class="uk-card-title">Time</h3>
     </div>
@@ -25,13 +25,13 @@
         <div class="uk-width-expand@m">
             <ul id="time-tabs" class="uk-switcher">
                 <li>
-                    {% include "dashboard/partials/time/milestone-trend-analysis.html" %}
+                    {% include "dashboard/sections/tabs/time-milestone-trend-analysis-graph.html" %}
                 </li>
                 <li>
-                    {% include "dashboard/partials/time/timeline-gantt.html" %}
+                    {% include "dashboard/sections/tabs/time-project-gantt.html" %}
                 </li>
                 <li>
-                    {% include "dashboard/partials/time/time-details.html" %}
+                    {% include "dashboard/sections/tabs/time-details.html" %}
                 </li>
             </ul>
         </div>

@@ -3,10 +3,10 @@
 <div id="gantt_div" class="uk-width-1-1"></div>
 
 <script type="text/javascript">
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawProjectGanttChart);
 
 
-    function drawChart() {
+    function drawProjectGanttChart() {
         function daysToMilliseconds(days) {
             return days * 24 * 60 * 60 * 1000;
         }

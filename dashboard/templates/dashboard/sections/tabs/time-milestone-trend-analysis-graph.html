@@ -1,11 +1,11 @@
-{% load mta %}
+{% load milestone_trend_analysis %}
 
 <div id="mta_div" class="uk-width-1-1"></div>
 
 <script type="text/javascript">
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawMilestoneTrendAnalysisChart);
 
-    function drawChart() {
+    function drawMilestoneTrendAnalysisChart() {
         var data = new google.visualization.DataTable();
         {% get_headers project as headers %}
         {% autoescape off %}

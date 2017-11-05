@@ -2,7 +2,7 @@ from django.test import TestCase
 from datetime import date
 
 # Create your tests here.
-from dashboard.templatetags.mta import get_days, get_table
+from dashboard.templatetags.milestone_trend_analysis import get_days, get_table
 from core.shared.test_utils import create_project, create_phase, create_task
 
 
