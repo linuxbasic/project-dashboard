@@ -1,6 +1,7 @@
 <table class="uk-table uk-table-striped uk-table-hover uk-table-small">
     <thead>
     <tr>
+        <th>ID</th>
         <th>Phase</th>
         <th>Planned End</th>
         <th>Predicted End</th>
@@ -9,6 +10,7 @@
     <tbody>
     {% for phase in project.phases.all %}
         <tr>
+            <td>P{{ phase.id }}</td>
             <td>{{ phase.name }}</td>
             <td>{{ phase.get_planned_end_date }}</td>
             <td>{{ phase.get_end_date }}</td>
