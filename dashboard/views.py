@@ -31,13 +31,18 @@ def index(request):
     project = Project.objects.all().prefetch_related('phases__tasks__duration_predictions').prefetch_related(
         'phases__tasks__resources').last()
     today = date.today()
+    planned_cost = project.get_planned_cost(today)
+    actual_cost = project.get_cost(today)
+    earned_value = project.get_earnings(today)
     context = {
         'project': project,
         'today': today,
         'cost': {
-            'planned': project.get_planned_cost(today),
-            'actual': project.get_cost(today),
-            'earning': project.get_earnings(today)
+            'planned': planned_cost,
+            'actual': actual_cost,
+            'earning': earned_value,
+            'variance': earned_value - actual_cost,
+            'cpi': earned_value / actual_cost,
         },
         'status': {
             'time': calculate_time_status(project),
