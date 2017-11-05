@@ -10,7 +10,8 @@
         <div class="uk-width-auto@m uk-flex-last@m">
             <ul class="uk-tab-right" uk-tab="connect: #budget-tabs">
                 <li><a href="#">EVA</a></li>
-                <li><a href="#">Details</a></li>
+                <li><a href="#">Phases</a></li>
+                <li><a href="#">Resources</a></li>
             </ul>
         </div>
         <div class="uk-width-1-4">
@@ -31,6 +32,9 @@
             <ul id="budget-tabs" class="uk-switcher">
                 <li>
                     {% include 'dashboard/sections/tabs/budget-earned-value-analyis-graph.html' %}
+                </li>
+                <li>
+                    {% include 'dashboard/sections/tabs/budget-phases.html' %}
                 </li>
                 <li>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
                     commodo consequat.

@@ -1,0 +1,26 @@
+<table class="uk-table uk-table-striped uk-table-hover uk-table-small">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Phase</th>
+        <th>Planned Duration</th>
+        <th>Actual Duration</th>
+        <th>Planned Cost</th>
+        <th>Actual Cost</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for phase in project.phases.all %}
+        {% if phase.get_end_date <= project.today %}
+            <tr>
+                <td>P{{ phase.id }}</td>
+                <td>{{ phase.name }}</td>
+                <td>{{ phase.get_planned_duration }}</td>
+                <td>{{ phase.get_duration }}</td>
+                <td>{{ phase.get_planned_cost }}</td>
+                <td>{{ phase.get_cost }}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+    </tbody>
+</table>
