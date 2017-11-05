@@ -32,10 +32,16 @@ def index(request):
         'phases__tasks__resources').last()
     today = date.today()
     context = {
-        'project': project, 'today': today, 'cost': {
-            'planned': project.get_planned_cost(today), 'actual': project.get_cost(today),
-        }, 'status': {
-            'time': calculate_time_status(project), 'budget': calculate_budget_status(project, today),
+        'project': project,
+        'today': today,
+        'cost': {
+            'planned': project.get_planned_cost(today),
+            'actual': project.get_cost(today),
+            'earning': project.get_earnings(today)
+        },
+        'status': {
+            'time': calculate_time_status(project),
+            'budget': calculate_budget_status(project, today),
         }
     }
 
