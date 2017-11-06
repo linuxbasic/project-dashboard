@@ -1,3 +1,5 @@
+{% load time_phases %}
+
 <table class="uk-table uk-table-striped uk-table-hover uk-table-small">
     <thead>
     <tr>
@@ -5,6 +7,7 @@
         <th>Phase</th>
         <th>Planned End</th>
         <th>Predicted End</th>
+        <th>Delta</th>
     </tr>
     </thead>
     <tbody>
@@ -14,6 +17,7 @@
             <td>{{ phase.name }}</td>
             <td>{{ phase.get_planned_end_date }}</td>
             <td>{{ phase.get_end_date }}</td>
+            <td>{% delta_in_days phase %}</td>
         </tr>
     {% endfor %}
     </tbody>
