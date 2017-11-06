@@ -12,7 +12,7 @@ class Command(BaseCommand):
         developer_resource = Resource.objects.create(name='Development Team', cost=1500)
         ux_resource = Resource.objects.create(name='UX Designer', cost=120)
         dba_resource = Resource.objects.create(name='Database Administrator', cost=210)
-        qa_resource = Resource.objects.create(name='Quality Assurance Manager', cost=100)
+        qa_resource = Resource.objects.create(name='Quality Assurance Team', cost=500)
         ops_resource = Resource.objects.create(name='Operations Manager', cost=180)
 
         project = Project.objects.create(name='Demo Project', start_date='2017-08-25')
@@ -63,12 +63,15 @@ class Command(BaseCommand):
         task_3_3 = phase_3.tasks.create(name='Prototype erstellen', planned_duration=5, predecessor=task_3_2)
         task_3_3.resources.add(developer_resource)
         task_3_3.resources.add(architect_resource)
-        task_3_3.duration_predictions.create(date='2017-09-07', duration=3)
+        task_3_3.duration_predictions.create(date='2017-09-08', duration=3)
+        project.chances.create(date='2017-10-08', name='Well known and simple technology stack', cost=1, impact=3,
+                               used=True)
+        project.risks.create(date='2017-10-08', name='Missing functionality in chosen technology stack', probability=2,
+                             severity=2, counter_measurement='Use prototype to test edge cases')
 
         task_3_4 = phase_3.tasks.create(name='Datenmodell erstellen', planned_duration=1, predecessor=task_3_3)
         task_3_4.resources.add(dba_resource)
         task_3_4.resources.add(architect_resource)
-        task_3_4.duration_predictions.create(date='2017-09-07', duration=0)
 
         task_3_5 = phase_3.tasks.create(name='Architektur dokumentieren', planned_duration=2, predecessor=task_3_4)
         task_3_5.resources.add(architect_resource)
@@ -88,7 +91,14 @@ class Command(BaseCommand):
         task_4_3 = phase_4.tasks.create(name='Backend implementieren', planned_duration=20, predecessor=task_4_2)
         task_4_3.resources.add(developer_resource)
         task_4_3.duration_predictions.create(date='2017-10-05', duration=25)  # new issue
+        project.issues.create(date='2017-10-05', name='2 Developers had accident', severity=3,
+                              counter_measurement='Requested additional Developers')
         task_4_3.duration_predictions.create(date='2017-10-15', duration=18)
+        project.chances.create(date='2017-10-15', name='Easier way to implement authentication', cost=1, impact=3,
+                               used=True)
+
+        project.risks.create(date='2017-10-16', name='Sick leaves in the QA Team', probability=2, severity=3,
+                             counter_measurement='Prepare external Support for QA Team')
 
         task_4_4 = phase_4.tasks.create(name='Database review', planned_duration=1, predecessor=task_4_3)
         task_4_4.resources.add(architect_resource)
@@ -114,12 +124,14 @@ class Command(BaseCommand):
 
         task_5_2 = phase_5.tasks.create(name='QA testing', planned_duration=5, predecessor=task_5_1)
         task_5_2.resources.add(qa_resource)
+        task_5_2.duration_predictions.create(date='2017-10-16', duration=10)
+        task_5_2.duration_predictions.create(date='2017-10-24', duration=6)
 
         task_5_3 = phase_5.tasks.create(name='Verbesserungen implementieren', planned_duration=2, predecessor=task_5_2)
         task_5_3.resources.add(project_manager_resource)
         task_5_3.resources.add(developer_resource)
         task_5_3.resources.add(qa_resource)
-        task_5_3.duration_predictions.create(date='2017-10-25', duration=0)
+        task_5_3.duration_predictions.create(date='2017-10-26', duration=0)
 
         task_5_4 = phase_5.tasks.create(name='Final QA', planned_duration=1, predecessor=task_5_2)
         task_5_4.resources.add(project_manager_resource)

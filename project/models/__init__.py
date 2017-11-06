@@ -4,3 +4,6 @@ from .task import Task
 from .task_duration import TaskDuration
 from .resource import Resource
 from .earning import Earning
+from .risk import Risk
+from .chance import Chance
+from .issue import Issue
