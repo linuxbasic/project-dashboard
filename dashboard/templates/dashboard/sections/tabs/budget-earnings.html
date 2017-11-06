@@ -1,0 +1,29 @@
+{% load resource_cost %}
+
+<table class="uk-table uk-table-striped uk-table-hover uk-table-small">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Contract Milestone</th>
+        <th>Spent</th>
+        <th>Earned</th>
+        <th>Earned / Spent Ratio</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for earning in project.earnings.all %}
+        {% if earning.date <= project.today %}
+            <tr>
+                <td>E{{ earning.id }}</td>
+                <td>{{ earning.date }}</td>
+                <td>{{ earning.name }}</td>
+                <td>{{ earning|cost:project|floatformat:2 }} CHF</td>
+                <td>{{ earning.value|floatformat:2 }} CHF</td>
+                <td>{{ earning|contract_delta:project|floatformat:2 }}</td>
+                <td></td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+    </tbody>
+</table>

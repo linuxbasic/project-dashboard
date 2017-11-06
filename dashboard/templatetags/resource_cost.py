@@ -38,3 +38,20 @@ def resource_cost_delta(resource, project):
 @register.filter
 def phase_cost_delta(phase):
     return phase.get_cost() / phase.get_planned_cost()
+
+
+@register.filter
+def cost(earning, project):
+    cost_total = project.get_cost(earning.date)
+    cost_last_earning = 0
+    last_earning = project.earnings.filter(date__lt=earning.date).first()
+    if last_earning:
+        cost_last_earning = project.get_cost(last_earning.date)
+    return cost_total - cost_last_earning
+
+
+@register.filter
+def contract_delta(earning, project):
+    spent = cost(earning, project)
+    earned = earning.value
+    return earned / spent
