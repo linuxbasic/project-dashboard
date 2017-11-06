@@ -130,19 +130,17 @@ class Command(BaseCommand):
         task_6_1 = phase_6.tasks.create(name='Deploy to production', planned_duration=2)
         task_6_1.resources.add(architect_resource)
         task_6_1.resources.add(ops_resource)
-        task_6_1.duration_predictions.create(date='2017-11-26', duration=4)
+        task_6_1.duration_predictions.create(date='2017-11-25', duration=4)
 
         task_6_2 = phase_6.tasks.create(name='User trainieren + Dokumentation finalisieren', planned_duration=5,
                                         predecessor=task_6_1)
         task_6_2.resources.add(project_manager_resource)
         task_6_2.resources.add(business_analyst_resource)
         task_6_2.resources.add(developer_resource)
-        task_6_2.duration_predictions.create(date='2017-11-01', duration=8)
 
         task_6_3 = phase_6.tasks.create(name='Bugfixes', planned_duration=3, predecessor=task_6_2)
         task_6_3.resources.add(project_manager_resource)
         task_6_3.resources.add(developer_resource)
-        task_6_3.duration_predictions.create(date='2017-11-01', duration=4)
 
         task_6_4 = phase_6.tasks.create(name='Handover to Operations', planned_duration=1, predecessor=task_6_3)
         task_6_4.resources.add(project_manager_resource)
