@@ -2,7 +2,7 @@ from django.test import TestCase
 from datetime import date
 
 # Create your tests here.
-from dashboard.templatetags.milestone_trend_analysis import get_dates_of_measurement, get_table
+from dashboard.templatetags.time_milestone_trend_analysis import get_dates_of_measurement, get_table
 from core.shared.test_utils import create_project, create_phase, create_task
 
 
