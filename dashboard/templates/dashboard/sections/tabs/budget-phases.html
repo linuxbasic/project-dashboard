@@ -15,10 +15,10 @@
             <tr>
                 <td>P{{ phase.id }}</td>
                 <td>{{ phase.name }}</td>
-                <td>{{ phase.get_planned_duration }}</td>
-                <td>{{ phase.get_duration }}</td>
-                <td>{{ phase.get_planned_cost }}</td>
-                <td>{{ phase.get_cost }}</td>
+                <td>{{ phase.get_planned_duration }} days</td>
+                <td>{{ phase.get_duration }} days</td>
+                <td>{{ phase.get_planned_cost|floatformat:2  }} CHF</td>
+                <td>{{ phase.get_cost|floatformat:2  }} CHF</td>
             </tr>
         {% endif %}
     {% endfor %}

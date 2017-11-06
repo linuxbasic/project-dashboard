@@ -1,7 +1,7 @@
 <div class="uk-card uk-card-default uk-card-body uk-margin">
     <div class="uk-grid-small uk-flex-middle" uk-grid>
         <div class="uk-width-auto">
-            {% include 'dashboard/elements/../partials/status.html' with status_code=status.budget %}
+            {% include 'dashboard/partials/status.html' with status_code=status.budget %}
         </div>
         <h3 class="uk-card-title">Budget</h3>
     </div>
@@ -15,18 +15,7 @@
             </ul>
         </div>
         <div class="uk-width-1-4">
-            <dl>
-                <dt>Planned Cost</dt>
-                <dd>{{ cost.planned|floatformat:2 }} CHF</dd>
-                <dt>Actual Cost</dt>
-                <dd>{{ cost.actual|floatformat:2 }} CHF</dd>
-                <dt>Earned Value</dt>
-                <dd>{{ cost.earning|floatformat:2 }} CHF</dd>
-                <dt>Cost Variance</dt>
-                <dd>{{ cost.variance|floatformat:2 }} CHF</dd>
-                <dt>Cost Performance Index</dt>
-                <dd>{{ cost.cpi|floatformat:2 }} %</dd>
-            </dl>
+            {% include 'dashboard/sections/budget-overview.html' %}
         </div>
         <div class="uk-width-expand@m">
             <ul id="budget-tabs" class="uk-switcher">
