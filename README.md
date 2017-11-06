@@ -17,3 +17,4 @@
 - [ ] Display correct project status
 - [ ] Progressbar in header
 - [ ] Admin UI
+- [ ] Deployment
