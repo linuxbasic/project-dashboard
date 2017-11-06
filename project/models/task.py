@@ -1,6 +1,7 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from datetime import timedelta
+from functools import lru_cache
 
 
 # Create your models here.
@@ -13,6 +14,7 @@ class Task(MPTTModel):
 
     planned_duration = models.PositiveIntegerField(verbose_name='Planned Duration of the Task in days')
 
+    @lru_cache(maxsize=None)
     def get_last_duration_prediction(self, on_date):
         query = self.duration_predictions
         try:
@@ -22,18 +24,22 @@ class Task(MPTTModel):
         except:
             return None
 
+    @lru_cache(maxsize=None)
     def get_planned_duration(self):
         return self.planned_duration
 
+    @lru_cache(maxsize=None)
     def get_duration(self, on_date=None):
         last_duration_prediction = self.get_last_duration_prediction(on_date)
         if last_duration_prediction:
             return last_duration_prediction.duration
         return self.get_planned_duration()
 
+    @lru_cache(maxsize=None)
     def get_resource_cost(self):
         return sum(self.resources.all().values_list('cost', flat=True))
 
+    @lru_cache(maxsize=None)
     def get_planned_cost(self, on_date=None):
         if on_date is None:
             return self.get_planned_duration() * self.get_resource_cost()
@@ -50,6 +56,7 @@ class Task(MPTTModel):
         days_spend_on_task = (on_date - start_date).days
         return self.get_planned_cost() * (days_spend_on_task / task_duration)
 
+    @lru_cache(maxsize=None)
     def get_cost(self, on_date=None):
         if on_date is None:
             return self.get_duration(on_date) * self.get_resource_cost()
@@ -66,21 +73,25 @@ class Task(MPTTModel):
         days_spend_on_task = (on_date - start_date).days
         return self.get_cost() * (days_spend_on_task / task_duration)
 
+    @lru_cache(maxsize=None)
     def get_start_date(self, on_date=None):
         if not self.predecessor:
             return self.phase.get_start_date(on_date)
         return self.predecessor.get_end_date(on_date)
 
+    @lru_cache(maxsize=None)
     def get_planned_start_date(self):
         if not self.predecessor:
             return self.phase.get_planned_start_date()
         return self.predecessor.get_planned_end_date()
 
+    @lru_cache(maxsize=None)
     def get_planned_end_date(self):
         start_date = self.get_planned_start_date()
         duration = self.get_planned_duration()
         return start_date + timedelta(days=duration)
 
+    @lru_cache(maxsize=None)
     def get_end_date(self, on_date=None):
         start_date = self.get_start_date(on_date)
         duration = self.get_duration(on_date)

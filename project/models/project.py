@@ -1,34 +1,41 @@
 from datetime import timedelta, date
 from django.db import models
+from functools import lru_cache
 
 
 class Project(models.Model):
     name = models.CharField(verbose_name='Project Name', max_length=50, )
     start_date = models.DateField(verbose_name='Start Date', )
 
+    @lru_cache(maxsize=None)
     def today(self):
-        if not hasattr(self, '_today'):
-            self._today = date.today()
-        return self._today
+        return date.today()
 
+    @lru_cache(maxsize=None)
     def get_planned_duration(self):
         return sum([phase.get_planned_duration() for phase in self.phases.all()])
 
+    @lru_cache(maxsize=None)
     def get_duration(self):
         return sum([phase.get_duration() for phase in self.phases.all()])
 
+    @lru_cache(maxsize=None)
     def get_planned_end_date(self):
         return self.start_date + timedelta(days=self.get_planned_duration())
 
+    @lru_cache(maxsize=None)
     def get_end_date(self):
         return self.start_date + timedelta(days=self.get_duration())
 
+    @lru_cache(maxsize=None)
     def get_planned_cost(self, on_date=None):
         return sum([phase.get_planned_cost(on_date) for phase in self.phases.all()])
 
+    @lru_cache(maxsize=None)
     def get_cost(self, on_date=None):
         return sum([phase.get_cost(on_date) for phase in self.phases.all()])
 
+    @lru_cache(maxsize=None)
     def get_earnings(self, on_date=None):
         query = self.earnings.all()
         if on_date is not None:
