@@ -10,7 +10,8 @@ class Task(MPTTModel):
     phase = models.ForeignKey(to='project.Phase', related_name='tasks', related_query_name='task', )
     predecessor = TreeForeignKey(to='self', related_name='successors', related_query_name='successor', null=True,
                                  blank=True, db_index=True)
-    resources = models.ManyToManyField('project.Resource', blank=True)
+    resources = models.ManyToManyField('project.Resource', blank=True, related_name='tasks',
+                                       related_query_name='task', )
 
     planned_duration = models.PositiveIntegerField(verbose_name='Planned Duration of the Task in days')
 
