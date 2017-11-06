@@ -17,8 +17,9 @@ def resource_duration(resource, project):
 
 @register.filter
 def planned_resource_cost(resource, project):
-    return sum([phase.get_planned_duration() * resource.cost for phase in resource.tasks.filter(phase__project=project) if
-                phase.get_end_date() <= project.today()])
+    return sum(
+        [phase.get_planned_duration() * resource.cost for phase in resource.tasks.filter(phase__project=project) if
+         phase.get_end_date() <= project.today()])
 
 
 @register.filter
@@ -32,3 +33,8 @@ def resource_cost_delta(resource, project):
     planned_cost = planned_resource_cost(resource, project)
     actual_cost = resource_cost(resource, project)
     return actual_cost / planned_cost
+
+
+@register.filter
+def phase_cost_delta(phase):
+    return phase.get_cost() / phase.get_planned_cost()

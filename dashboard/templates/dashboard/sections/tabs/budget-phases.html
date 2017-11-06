@@ -1,3 +1,5 @@
+{% load resource_cost %}
+
 <table class="uk-table uk-table-striped uk-table-hover uk-table-small">
     <thead>
     <tr>
@@ -7,6 +9,7 @@
         <th>Actual Duration</th>
         <th>Planned Cost</th>
         <th>Actual Cost</th>
+        <th>Actual / Planned Ratio</th>
     </tr>
     </thead>
     <tbody>
@@ -17,8 +20,9 @@
                 <td>{{ phase.name }}</td>
                 <td>{{ phase.get_planned_duration }} days</td>
                 <td>{{ phase.get_duration }} days</td>
-                <td>{{ phase.get_planned_cost|floatformat:2  }} CHF</td>
-                <td>{{ phase.get_cost|floatformat:2  }} CHF</td>
+                <td>{{ phase.get_planned_cost|floatformat:2 }} CHF</td>
+                <td>{{ phase.get_cost|floatformat:2 }} CHF</td>
+                <td>{{ phase|phase_cost_delta|floatformat:2 }}</td>
             </tr>
         {% endif %}
     {% endfor %}
