@@ -21,7 +21,7 @@
             <td>{{ resource|resource_duration:project }} days</td>
             <td>{{ resource|planned_resource_cost:project|floatformat:2 }} CHF</td>
             <td>{{ resource|resource_cost:project|floatformat:2 }} CHF</td>
-            <td>{{ resource|cost_delta:project|floatformat:2 }}</td>
+            <td>{{ resource|resource_cost_delta:project|floatformat:2 }}</td>
         </tr>
     {% endfor %}
     </tbody>
