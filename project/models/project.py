@@ -1,6 +1,7 @@
 from datetime import timedelta, date
 from django.db import models
 from functools import lru_cache
+from .resource import Resource
 
 
 class Project(models.Model):
@@ -10,6 +11,10 @@ class Project(models.Model):
     @lru_cache(maxsize=None)
     def today(self):
         return date.today()
+
+    @lru_cache(maxsize=None)
+    def resources(self):
+        return Resource.objects.filter(task__phase__project=self).distinct()
 
     @lru_cache(maxsize=None)
     def get_planned_duration(self):

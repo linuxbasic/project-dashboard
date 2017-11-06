@@ -1,0 +1,28 @@
+{% load resource_cost %}
+
+<table class="uk-table uk-table-striped uk-table-hover uk-table-small">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Resource</th>
+        <th>Planned Usage</th>
+        <th>Actual Usage</th>
+        <th>Planned Cost</th>
+        <th>Actual Cost</th>
+        <th>Actual / Planned Ratio</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for resource in project.resources %}
+        <tr>
+            <td>R{{ resource.id }}</td>
+            <td>{{ resource.name }}</td>
+            <td>{{ resource|planned_resource_duration:project }} days</td>
+            <td>{{ resource|resource_duration:project }} days</td>
+            <td>{{ resource|planned_resource_cost:project|floatformat:2 }} CHF</td>
+            <td>{{ resource|resource_cost:project|floatformat:2 }} CHF</td>
+            <td>{{ resource|cost_delta:project|floatformat:2 }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
