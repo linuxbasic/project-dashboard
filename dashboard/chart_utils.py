@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-DAYS_BETWEEN_MEASUREMENTS = 7
+DAYS_BETWEEN_MEASUREMENTS = 1
 
 
 def get_dates_of_measurement(start_date, end_date):
