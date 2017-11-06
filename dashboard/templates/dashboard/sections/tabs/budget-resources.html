@@ -5,6 +5,7 @@
     <tr>
         <th>ID</th>
         <th>Resource</th>
+        <th>Daily Cost</th>
         <th>Planned Usage</th>
         <th>Actual Usage</th>
         <th>Planned Cost</th>
@@ -17,6 +18,7 @@
         <tr>
             <td>R{{ resource.id }}</td>
             <td>{{ resource.name }}</td>
+            <td>{{ resource.cost|floatformat:2  }} CHF</td>
             <td>{{ resource|planned_resource_duration:project }} days</td>
             <td>{{ resource|resource_duration:project }} days</td>
             <td>{{ resource|planned_resource_cost:project|floatformat:2 }} CHF</td>
