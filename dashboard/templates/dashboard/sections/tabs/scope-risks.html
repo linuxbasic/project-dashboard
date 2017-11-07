@@ -1,0 +1,30 @@
+<table class="uk-table uk-table-striped uk-table-hover uk-table-small">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Issue</th>
+        <th>Discovered</th>
+        <th>Probability</th>
+        <th>Severity</th>
+        <th>Risk</th>
+        <th>Counter Measurement</th>
+        <th>Resolved</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for risk in project.risks.all %}
+        {% if risk.date <= project.today %}
+            <tr>
+                <td>RSK{{ risk.id }}</td>
+                <td>{{ risk.name }}</td>
+                <td>{{ risk.date }}</td>
+                <td>{{ risk.get_probability_display }}</td>
+                <td>{{ risk.get_severity_display }}</td>
+                <td>{{ risk.display_risk }}</td>
+                <td>{{ risk.counter_measurement }}</td>
+                <td>{% include 'dashboard/partials/boolean.html' with value=risk.resolved %}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+    </tbody>
+</table>

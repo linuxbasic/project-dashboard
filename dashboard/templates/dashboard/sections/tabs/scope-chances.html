@@ -1,0 +1,26 @@
+<table class="uk-table uk-table-striped uk-table-hover uk-table-small">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Chance</th>
+        <th>Discovered</th>
+        <th>Cost</th>
+        <th>Impact</th>
+        <th>Used</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for chance in project.chances.all %}
+        {% if chance.date <= project.today %}
+            <tr>
+                <td>C{{ chance.id }}</td>
+                <td>{{ chance.name }}</td>
+                <td>{{ chance.date }}</td>
+                <td>{{ chance.get_cost_display }}</td>
+                <td>{{ chance.get_impact_display }}</td>
+                <td>{% include 'dashboard/partials/boolean.html' with value=chance.used %}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+    </tbody>
+</table>

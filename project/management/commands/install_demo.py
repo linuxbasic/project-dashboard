@@ -67,7 +67,7 @@ class Command(BaseCommand):
         project.chances.create(date='2017-10-08', name='Well known and simple technology stack', cost=1, impact=3,
                                used=True)
         project.risks.create(date='2017-10-08', name='Missing functionality in chosen technology stack', probability=2,
-                             severity=2, counter_measurement='Use prototype to test edge cases')
+                             severity=2, counter_measurement='Use prototype to test edge cases', resolved=True)
 
         task_3_4 = phase_3.tasks.create(name='Datenmodell erstellen', planned_duration=1, predecessor=task_3_3)
         task_3_4.resources.add(dba_resource)
@@ -82,6 +82,10 @@ class Command(BaseCommand):
         task_4_1 = phase_4.tasks.create(name='UX Konzept erstellen', planned_duration=3)
         task_4_1.resources.add(ux_resource)
         task_4_1.duration_predictions.create(date='2017-09-12', duration=4)
+        project.issues.create(date='2017-10-12', name='Stakeholders for UX tests are overbooked', severity=2,
+                              counter_measurement='Organize Replacements')
+        project.chances.create(date='2017-10-13', name='Different UI Approach', cost=3, impact=2,
+                               used=False)
         task_4_1.duration_predictions.create(date='2017-09-13', duration=5)
 
         task_4_2 = phase_4.tasks.create(name='Frontend implementieren', planned_duration=15, predecessor=task_4_1)
@@ -97,8 +101,8 @@ class Command(BaseCommand):
         project.chances.create(date='2017-10-15', name='Easier way to implement authentication', cost=1, impact=3,
                                used=True)
 
-        project.risks.create(date='2017-10-16', name='Sick leaves in the QA Team', probability=2, severity=3,
-                             counter_measurement='Prepare external Support for QA Team')
+        project.risks.create(date='2017-10-15', name='Multiple sick-leaves in the QA Team', probability=2, severity=3,
+                             counter_measurement='Prepare external Support for QA Team', resolved=True)
 
         task_4_4 = phase_4.tasks.create(name='Database review', planned_duration=1, predecessor=task_4_3)
         task_4_4.resources.add(architect_resource)
@@ -125,7 +129,10 @@ class Command(BaseCommand):
         task_5_2 = phase_5.tasks.create(name='QA testing', planned_duration=5, predecessor=task_5_1)
         task_5_2.resources.add(qa_resource)
         task_5_2.duration_predictions.create(date='2017-10-16', duration=10)
+        project.risks.create(date='2017-10-16', name='Concern about legal requirement raised', probability=2,
+                             severity=3, counter_measurement='Requested Audit by Stakeholders and Legal')
         task_5_2.duration_predictions.create(date='2017-10-24', duration=6)
+
 
         task_5_3 = phase_5.tasks.create(name='Verbesserungen implementieren', planned_duration=2, predecessor=task_5_2)
         task_5_3.resources.add(project_manager_resource)

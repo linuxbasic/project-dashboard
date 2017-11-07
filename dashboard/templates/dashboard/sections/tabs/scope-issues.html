@@ -1,0 +1,24 @@
+<table class="uk-table uk-table-striped uk-table-hover uk-table-small">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Issue</th>
+        <th>Encountered</th>
+        <th>Severity</th>
+        <th>Counter Measurement</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for issue in project.issues.all %}
+        {% if issue.date <= project.today %}
+            <tr>
+                <td>I{{ issue.id }}</td>
+                <td>{{ issue.name }}</td>
+                <td>{{ issue.date }}</td>
+                <td>{{ issue.get_severity_display }}</td>
+                <td>{{ issue.counter_measurement }}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+    </tbody>
+</table>

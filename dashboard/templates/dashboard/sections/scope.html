@@ -1,29 +1,30 @@
 <div class="uk-card uk-card-default uk-card-body uk-margin">
     <div class="uk-grid-small uk-flex-middle" uk-grid>
         <div class="uk-width-auto">
-            {% include 'dashboard/elements/../partials/status.html' with status_code=3 %}
+            {% include 'dashboard/partials/status.html' with status_code=status.scope %}
         </div>
-        <h3 class="uk-card-title">Risk</h3>
+        <h3 class="uk-card-title">Risks and Chances</h3>
     </div>
     <div uk-grid>
-        <div class="uk-width-auto@m uk-flex-last@m">
-            <ul class="uk-tab-right" uk-tab="connect: #risk-tabs">
-                <li><a href="#">Risks</a></li>
-                <li><a href="#">Issues</a></li>
-            </ul>
-        </div>
         <div class="uk-width-1-4">
-            Risk-Overview
+            <dl>
+                <dt>Encountered Issues</dt>
+                <dd>{{ project.issues.count }}</dd>
+                <dt>Identified Chances</dt>
+                <dd>{{ project.chances.count }}</dd>
+                <dt>Identified Risks</dt>
+                <dd>{{ project.risks.count }}</dd>
+                <dt>Unresolved Risk</dt>
+                <dd>{{ project.display_unresolved_risk }}</dd>
+            </dl>
         </div>
         <div class="uk-width-expand@m">
-            <ul id="risk-tabs" class="uk-switcher">
-                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua.
-                </li>
-                <li>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat.
-                </li>
-            </ul>
+            <span class="uk-text-lead">Issues</span>
+            {% include 'dashboard/sections/tabs/scope-issues.html' %}
+            <span class="uk-text-lead">Risks</span>
+            {% include 'dashboard/sections/tabs/scope-risks.html' %}
+            <span class="uk-text-lead">Chances</span>
+            {% include 'dashboard/sections/tabs/scope-chances.html' %}
         </div>
     </div>
 </div>

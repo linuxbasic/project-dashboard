@@ -27,6 +27,15 @@ def calculate_budget_status(project, date):
     return 3
 
 
+def calculate_scope_status(project, date):
+    risk = project.get_unresolved_risk(on_date=date)
+    if risk < 3:
+        return 1
+    if risk == 3:
+        return 2
+    return 3
+
+
 def index(request):
     project = Project.objects.all().prefetch_related('phases__tasks__duration_predictions').prefetch_related(
         'phases__tasks__resources').last()
@@ -46,6 +55,7 @@ def index(request):
         'status': {
             'time': calculate_time_status(project),
             'budget': calculate_budget_status(project, today),
+            'scope': calculate_scope_status(project, today),
         }
     }
 
