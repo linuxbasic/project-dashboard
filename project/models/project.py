@@ -20,11 +20,11 @@ class Project(models.Model):
 
     @lru_cache(maxsize=None)
     def get_planned_duration(self):
-        return sum([phase.get_planned_duration() for phase in self.phases.all()])
+        return sum(phase.get_planned_duration() for phase in self.phases.all())
 
     @lru_cache(maxsize=None)
     def get_duration(self):
-        return sum([phase.get_duration() for phase in self.phases.all()])
+        return sum(phase.get_duration() for phase in self.phases.all())
 
     @lru_cache(maxsize=None)
     def get_planned_end_date(self):
@@ -36,11 +36,11 @@ class Project(models.Model):
 
     @lru_cache(maxsize=None)
     def get_planned_cost(self, on_date=None):
-        return sum([phase.get_planned_cost(on_date) for phase in self.phases.all()])
+        return sum(phase.get_planned_cost(on_date) for phase in self.phases.all())
 
     @lru_cache(maxsize=None)
     def get_cost(self, on_date=None):
-        return sum([phase.get_cost(on_date) for phase in self.phases.all()])
+        return sum(phase.get_cost(on_date) for phase in self.phases.all())
 
     @lru_cache(maxsize=None)
     def get_earnings(self, on_date=None):
@@ -54,7 +54,7 @@ class Project(models.Model):
         unresolved_risks = self.risks.filter(resolved=False)
         if on_date:
             unresolved_risks = unresolved_risks.filter(date__lte=on_date)
-        total_risk = sum([risk.get_risk() for risk in unresolved_risks])
+        total_risk = sum(risk.get_risk() for risk in unresolved_risks)
         average_risk = total_risk / unresolved_risks.count()
         rounded_risk = ceil(average_risk)
         while rounded_risk not in Risk.RISK_MAP.keys():

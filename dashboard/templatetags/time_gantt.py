@@ -5,9 +5,8 @@ register = template.Library()
 
 def to_gantt_row(task_id, task_name, start=None, end=None, duration=None, percent_complete=None, dependencies=[],
                  resource_id=None):
-    row = []
+    row = ["'{}'".format(task_id)]
 
-    row.append("'{}'".format(task_id))
     row.append("'{}'".format(task_name))
     row.append("'{}'".format(resource_id) if resource_id else 'null')
     row.append("new Date('{}')".format(start) if start else 'null')

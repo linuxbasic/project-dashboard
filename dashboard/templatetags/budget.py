@@ -5,27 +5,38 @@ register = template.Library()
 
 @register.filter
 def planned_resource_duration(resource, project):
-    return sum([phase.get_planned_duration() for phase in resource.tasks.filter(phase__project=project) if
-                phase.get_end_date() <= project.today()])
+    return sum(
+        phase.get_planned_duration()
+        for phase in resource.tasks.filter(phase__project=project)
+        if phase.get_end_date() <= project.today()
+    )
 
 
 @register.filter
 def resource_duration(resource, project):
-    return sum([phase.get_duration() for phase in resource.tasks.filter(phase__project=project) if
-                phase.get_end_date() <= project.today()])
+    return sum(
+        phase.get_duration()
+        for phase in resource.tasks.filter(phase__project=project)
+        if phase.get_end_date() <= project.today()
+    )
 
 
 @register.filter
 def planned_resource_cost(resource, project):
     return sum(
-        [phase.get_planned_duration() * resource.cost for phase in resource.tasks.filter(phase__project=project) if
-         phase.get_end_date() <= project.today()])
+        phase.get_planned_duration() * resource.cost
+        for phase in resource.tasks.filter(phase__project=project)
+        if phase.get_end_date() <= project.today()
+    )
 
 
 @register.filter
 def resource_cost(resource, project):
-    return sum([phase.get_duration() * resource.cost for phase in resource.tasks.filter(phase__project=project) if
-                phase.get_end_date() <= project.today()])
+    return sum(
+        phase.get_duration() * resource.cost
+        for phase in resource.tasks.filter(phase__project=project)
+        if phase.get_end_date() <= project.today()
+    )
 
 
 @register.filter

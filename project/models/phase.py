@@ -13,11 +13,11 @@ class Phase(MPTTModel):
 
     @lru_cache(maxsize=None)
     def get_planned_duration(self):
-        return sum([task.get_planned_duration() for task in self.tasks.all()])
+        return sum(task.get_planned_duration() for task in self.tasks.all())
 
     @lru_cache(maxsize=None)
     def get_duration(self, on_date=None):
-        return sum([task.get_duration(on_date) for task in self.tasks.all()])
+        return sum(task.get_duration(on_date) for task in self.tasks.all())
 
     @lru_cache(maxsize=None)
     def get_planned_start_date(self):
@@ -47,11 +47,11 @@ class Phase(MPTTModel):
 
     @lru_cache(maxsize=None)
     def get_planned_cost(self, on_date=None):
-        return sum([task.get_planned_cost(on_date) for task in self.tasks.all()])
+        return sum(task.get_planned_cost(on_date) for task in self.tasks.all())
 
     @lru_cache(maxsize=None)
     def get_cost(self, on_date=None):
-        return sum([task.get_cost(on_date) for task in self.tasks.all()])
+        return sum(task.get_cost(on_date) for task in self.tasks.all())
 
     class MPTTMeta:
         parent_attr = 'predecessor'
